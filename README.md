@@ -8,6 +8,7 @@ The purpose of this possibles ArrayList is to represent the only number values t
 To apply the Sudoku rules, when a Square object is assigned a number value, two things happen:
  - It is assigned a random number value directly from its own possibles ArrayList
  - The removePossibles() method from the main method is called
+
 The removePossibles() method uses the getRelated() method to get the three arrays of objects that are related to the passed Square object: Its corresponding row, column, and group
 With the Square objects from each of the related groups, the removePossibles() method calls the remove() method for each Square object in the arrays and passes the newly assigned number value of the original Square object
 The remove() method removes the passed number value from the objects possibles ArrayList
