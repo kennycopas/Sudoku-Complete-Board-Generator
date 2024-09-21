@@ -31,6 +31,7 @@ public class Main {
         }
     }
     public static void checkSingles() {
+        //Populates any Square object that has only one possibles number value left
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 map[i][j].checkSingle();
@@ -38,6 +39,8 @@ public class Main {
         }
     }
     public static void populateSquares() {
+        //While the board is incomplete, check for singles, assign the prioritized Square object, populate that object,
+        //remove the number value assigned to that object from all the related objects, and check if the board is complete
         while(!boardComplete) {
             checkSingles();
             Square priority = priority();
@@ -48,6 +51,7 @@ public class Main {
         System.out.println();
     }
     public static void reset() {
+        //Reset the entire board, populate the map again
         resetCount++;
         map = new Square[9][9];
         columns = new Square[9][9];
@@ -56,6 +60,7 @@ public class Main {
         populateMap();
     }
     public static void isBoardComplete() {
+        //Check if ever Square object has an assigned value
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
                 if(map[i][j].num == 0) {
@@ -66,6 +71,7 @@ public class Main {
         boardComplete = true;
     }
     public static Square priority() {
+        //Return the Square object with the least amount of possible number values left (possibles.size() returns the smallest number)
         int tinySize = 9;
         Square tinySquare = map[0][0];
         for(int i = 0; i < 9; i++) {
@@ -87,20 +93,11 @@ public class Main {
             System.out.println();
             System.out.println("  --------------------------------------------------------");
         }
-        /*
-        Print groups
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                for(int k = 0; k < 9; k++) {
-                    System.out.print(groups[i][j][k].num + " ");
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println();
-        }*/
     }
     public static Square[][] getRelated(int x, int y) {
+        //Returns a two-dimensional array that holds three arrays
+        //Each array is a set of objects related to the object at the coordinates passed (x, y)
+        //The three arrays are the row, column, and group of the referenced object
         Square[][] related = new Square[3][9];
         related[0] = map[y];
         related[1] = columns[x];
@@ -110,11 +107,13 @@ public class Main {
         return related;
     }
     public static void removeList(Square[] list, int removed) {
+        //Remove the passed number from all the objects in the passed array
         for(int i = 0; i < 9; i++) {
             list[i].remove(removed);
         }
     }
     public static void removePossibles(Square square) {
+        //Remove the assigned number value from all the related objects' lists of possible number (for each object: possibles.remove(Integer.valueOf(num)))
         int num = square.num;
         Square[][] related = getRelated(square.x, square.y);
         Square[] row = related[0];
@@ -130,9 +129,5 @@ public class Main {
         printMap();
         System.out.println();
         System.out.println("Board was reset " + resetCount + " times.");
-        /*ArrayList<Integer> test = new ArrayList<>(9);
-        for(int i = 1; i < 10; i++) {
-            test.add(i);
-        }*/
     }
 }
