@@ -1,4 +1,4 @@
-I made this a few hours, it is not optimalized.
+I made this in a few hours, it is not optimalized.
 
 This program creates a two-dimensional array named "map" that represents the sudoku board, and then populates that array with 81 instances of the Square class
 Each of these Square objects has their own coordinates and number value
